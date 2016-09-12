@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Gibe.CacheBusting</id>
+    <version>$version$</version>
+    <authors>Gibe Digital Ltd</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>
+			System to work with Gulp-Rev to do cache busting
+		</description>
+		<dependencies>
+			<dependency id="Gibe.FileSystem" version="$version$" />
+			<dependency id="Ninject" version="3.2.2.0" />
+			<dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
+		</dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Gibe.CacheBusting.dll" target="lib" />
+  </files>
+</package>
