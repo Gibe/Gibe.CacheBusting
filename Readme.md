@@ -4,11 +4,11 @@ To use cache busting you need to do the following
 
 nuget : ```Install-Package Gibe.CacheBusting```
 
-Add gulp-rev, gulp-rev-delete-original and gulp-filter to package.json
+You will need to add gulp-rev, gulp-rev-delete-original and gulp-filter to package.json
 
 Update the gulp file to then include rev(), revdel() and rev.manifest() in the process for building css and js
 
-For example in TW:
+For example:
 
 ```javascript
 var gulp = require('gulp'),
@@ -64,12 +64,14 @@ gulp.task('watch', function () {
 	gulp.watch('./gulp/scripts/**/*.js', ['js']);
 });
 ```
-Assuming CSS and JS are being written to ~/css/ and ~/js/ you can use the default bindings. 
 
-add to configSections
-```<section name="cacheBusting" type="Gibe.CacheBusting.Config.CacheBustingSection, Gibe.CacheBusting" />```
-
+Then you can add to web.config <configSections>
+```xml
+<section name="cacheBusting" type="Gibe.CacheBusting.Config.CacheBustingSection, Gibe.CacheBusting" />
 ```
+And add this section somewhere in <configuration> in you web.config
+
+```xml
 <cacheBusting>
 	<manifests>
 		<add path="/css/" file="~/css/rev-manifest.json" />
@@ -78,9 +80,9 @@ add to configSections
 </cacheBusting>
 ```
 
-Add to your ninject bindings: ```kernel.Load<Gibe.CacheBusting.DefaultNinjectBindingsModule>();```
+If you're using Ninject, add to your ninject bindings: ```kernel.Load<Gibe.CacheBusting.DefaultNinjectBindingsModule>();```
 
-Add to you ~/views/web.config : ```<add namespace="Gibe.CacheBusting" />```
+Add to you ~/views/web.config : ```xml<add namespace="Gibe.CacheBusting" />```
 
 Use in your views ```@Url.Asset("/js/site.js")```
 
