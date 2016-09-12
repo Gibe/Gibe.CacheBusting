@@ -69,7 +69,7 @@ Then you can add to web.config <configSections>
 ```xml
 <section name="cacheBusting" type="Gibe.CacheBusting.Config.CacheBustingSection, Gibe.CacheBusting" />
 ```
-And add this section somewhere in <configuration> in you web.config
+And add this section somewhere in <configuration> in your web.config
 
 ```xml
 <cacheBusting>
@@ -82,7 +82,7 @@ And add this section somewhere in <configuration> in you web.config
 
 If you're using Ninject, add to your ninject bindings: ```kernel.Load<Gibe.CacheBusting.DefaultNinjectBindingsModule>();```
 
-Add to you ~/views/web.config : ```xml<add namespace="Gibe.CacheBusting" />```
+Add to you ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
 
 Use in your views ```@Url.Asset("/js/site.js")```
 
