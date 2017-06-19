@@ -2,7 +2,6 @@
 
 namespace Gibe.CacheBusting.Config
 {
-	
 	public class CacheBustingSection : ConfigurationSection
 	{
 		[ConfigurationProperty("manifests", IsRequired = true)]
