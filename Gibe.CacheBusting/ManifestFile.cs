@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Helpers;
 using Gibe.FileSystem;
 
@@ -9,7 +12,6 @@ namespace Gibe.CacheBusting
 	public class ManifestFile
 	{
 		private readonly IFileService _fileService;
-		private readonly IPaths _paths;
 		private readonly string _path;
 		private readonly string _sourceFile;
 
@@ -29,7 +31,6 @@ namespace Gibe.CacheBusting
 			var fsw = new FileSystemWatcher(Path.GetDirectoryName(file), Path.GetFileName(file));
 			fsw.NotifyFilter = NotifyFilters.LastWrite;
 			fsw.Changed += (sender, args) => OnChanged(args);
-			fsw.Created += (sender, args) => OnChanged(args);
 			fsw.EnableRaisingEvents = true;
 		}
 
