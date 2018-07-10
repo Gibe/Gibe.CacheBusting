@@ -30,15 +30,15 @@ namespace Gibe.CacheBusting.Config
 		[ConfigurationProperty("path", IsRequired = true, IsKey = false)]
 		public string Path
 		{
-			get { return (string) this["path"]; }
-			set { this["path"] = value; }
+			get => (string) this["path"];
+			set => this["path"] = value;
 		}
 
 		[ConfigurationProperty("file", IsRequired = true, IsKey = true)]
 		public string File
 		{
-			get { return (string)this["file"]; }
-			set { this["file"] = value; }
+			get => (string)this["file"];
+			set => this["file"] = value;
 		}
 	}
 }

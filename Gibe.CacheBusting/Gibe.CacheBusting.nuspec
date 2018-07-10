@@ -9,7 +9,7 @@
 			System to work with Gulp-Rev to do cache busting
 		</description>
 		<dependencies>
-			<dependency id="Gibe.FileSystem" version="2.0.0" />
+			<dependency id="Gibe.FileSystem" version="2.1.0" />
 			<dependency id="Ninject" version="3.2.2.0" />
 			<dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
 		</dependencies>

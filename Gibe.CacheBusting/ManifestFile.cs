@@ -28,14 +28,22 @@ namespace Gibe.CacheBusting
 
 		private void WatchManifestForChanges(string file)
 		{
-			var fsw = new FileSystemWatcher(Path.GetDirectoryName(file), Path.GetFileName(file));
-			fsw.NotifyFilter = NotifyFilters.LastWrite;
+			var fsw = new FileSystemWatcher(Path.GetDirectoryName(file), Path.GetFileName(file))
+			{
+				NotifyFilter = NotifyFilters.LastWrite
+			};
+			fsw.Created += (sender, args) => OnChanged(args);
 			fsw.Changed += (sender, args) => OnChanged(args);
 			fsw.EnableRaisingEvents = true;
 		}
 
 		public Dictionary<string, string> GetManifest()
 		{
+			if (!_fileService.FileExists(_sourceFile))
+			{
+				return new Dictionary<string, string>();
+			}
+
 			var json = _fileService.ReadAllText(_sourceFile);
 			var lookups = Json.Decode<Dictionary<string, string>>(json);
 

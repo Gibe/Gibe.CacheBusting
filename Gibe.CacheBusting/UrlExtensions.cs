@@ -12,11 +12,7 @@ namespace Gibe.CacheBusting
 		public static string Asset(this UrlHelper url, string filename)
 		{
 			var manifest = DependencyResolver.Current.GetService<IRevisionManifest>();
-			if (manifest.ContainsPath(filename))
-			{
-				return manifest.GetHashedPath(filename);
-			}
-			return filename;
+			return manifest.ContainsPath(filename) ? manifest.GetHashedPath(filename) : filename;
 		}
 	}
 }
