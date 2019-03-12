@@ -4,7 +4,33 @@ To use cache busting you need to do the following
 
 nuget : ```Install-Package Gibe.CacheBusting```
 
-You will need to add gulp-rev, gulp-rev-delete-original and gulp-filter to package.json
+If you're using **[Autofac](https://autofac.org/"Autofac")**, you'll need the following
+
+nuget : ```Gibe.CacheBusting.Autofac```
+
+Bindings registration: ```builder.RegisterModule<Gibe.CacheBusting.Autofac.DefaultBindingsModule>();```
+
+If you're using **[LightInject](https://www.lightinject.net/"LightInject")**, you'll need the following
+
+nuget : ```Gibe.CacheBusting.LightInject```
+
+Bindings registration: ```builderGibe.CacheBusting.LightInject.DefaultBindingsModule.RegisterServicesFactories(container);```
+
+If you're using **[Ninject](http://www.ninject.org/"Ninject")**, you'll need the following
+
+nuget : ```Gibe.CacheBusting.Ninject```
+
+Bindings registration: ```kernel.Load<Gibe.CacheBusting.Ninject.DefaultBindingsModule>();```
+
+The bindings for any other inversion of control container are:
+
+```Gibe.CacheBusting.IRevisionManifest``` to ```Gibe.CacheBusting.RevisionManifest```
+```Gibe.CacheBusting.IManifestFileFactory``` to ```Gibe.CacheBusting.ConfigManifestFileFactory```
+```Gibe.FileSystem.IDirectoryService``` to ```GibeGibe.FileSystem.DirectoryService```
+```Gibe.FileSystem.IFileService``` to ```GibeGibe.FileSystem.FileService```
+```Gibe.FileSystem.IPaths``` to ```GibeGibe.FileSystem.Paths```
+
+You will need to add [gulp-rev](https://www.npmjs.com/package/gulp-rev"gulp-rev"), [gulp-rev-delete-original](https://www.npmjs.com/package/gulp-rev-delete-original"gulp-rev-delete-original") and [gulp-filter](https://www.npmjs.com/package/gulp-filter"gulp-filter") to your package.json
 
 Update the gulp file to then include rev(), revdel() and rev.manifest() in the process for building css and js
 
@@ -80,9 +106,7 @@ And add this section somewhere in <configuration> in your web.config
 </cacheBusting>
 ```
 
-If you're using Ninject, add to your ninject bindings: ```kernel.Load<Gibe.CacheBusting.DefaultNinjectBindingsModule>();```
-
-Add to you ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
+Add to your ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
 
 Use in your views ```@Url.Asset("/js/site.js")```
 
