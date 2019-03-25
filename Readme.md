@@ -65,11 +65,11 @@ gulp.task('watch', function () {
 });
 ```
 
-Then you can add to web.config <configSections>
+Then you can add to web.config `<configSections>`
 ```xml
 <section name="cacheBusting" type="Gibe.CacheBusting.Config.CacheBustingSection, Gibe.CacheBusting" />
 ```
-And add this section somewhere in <configuration> in your web.config
+And add this section somewhere in `<configuration>` in your web.config
 
 ```xml
 <cacheBusting>
@@ -80,7 +80,7 @@ And add this section somewhere in <configuration> in your web.config
 </cacheBusting>
 ```
 
-Add to you ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
+Add to your ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
 
 Use in your views ```@Url.Asset("/js/site.js")```
 
