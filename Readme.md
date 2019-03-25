@@ -80,8 +80,6 @@ And add this section somewhere in <configuration> in your web.config
 </cacheBusting>
 ```
 
-If you're using Ninject, add to your ninject bindings: ```kernel.Load<Gibe.CacheBusting.DefaultNinjectBindingsModule>();```
-
 Add to you ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
 
 Use in your views ```@Url.Asset("/js/site.js")```

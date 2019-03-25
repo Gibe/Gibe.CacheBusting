@@ -12,7 +12,7 @@ namespace Gibe.CacheBusting
 		private readonly IManifestFileFactory _manifestFileFactory;
 		private Dictionary<string, string> _lookup;
 		
-		private RevisionManifest(IManifestFileFactory manifestFileFactory)
+		internal RevisionManifest(IManifestFileFactory manifestFileFactory)
 		{
 			_manifestFileFactory = manifestFileFactory;
 		}
