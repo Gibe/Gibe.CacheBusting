@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Helpers;
 using Gibe.FileSystem;
 
@@ -19,10 +16,10 @@ namespace Gibe.CacheBusting
 
 		public ManifestFile(IFileService fileService, string path, string sourceFile)
 		{
+			_fileService = fileService;
 			_path = path;
 			_sourceFile = sourceFile;
-			_fileService = fileService;
-
+			
 			WatchManifestForChanges(sourceFile);
 		}
 
@@ -50,12 +47,12 @@ namespace Gibe.CacheBusting
 			var output = new Dictionary<string, string>();
 			foreach (var kvp in lookups)
 			{
-				output.Add($"{_path}{kvp.Key}",$"{_path}{kvp.Value}");
+				output.Add($"{_path}{kvp.Key}", $"{_path}{kvp.Value}");
 			}
 			return output;
 		}
 
-		public void OnChanged(EventArgs e)
+		private void OnChanged(EventArgs e)
 		{
 			Changed?.Invoke(this, e);
 		}

@@ -1,19 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Gibe.FileSystem;
 
 namespace Gibe.CacheBusting
 {
 	public class RevisionManifest : IRevisionManifest
 	{
+		// Singleton
+		private static IRevisionManifest _revisionManifest;
+
 		private readonly IManifestFileFactory _manifestFileFactory;
 		private Dictionary<string, string> _lookup;
 		
-		public RevisionManifest(IManifestFileFactory manifestFileFactory)
+		private RevisionManifest(IManifestFileFactory manifestFileFactory)
 		{
 			_manifestFileFactory = manifestFileFactory;
+		}
+
+		public static IRevisionManifest Current
+		{
+			get
+			{
+				if (_revisionManifest == null)
+				{
+					_revisionManifest = new RevisionManifest(new ConfigManifestFileFactory(new FileService(), new Paths()));
+				}
+				return _revisionManifest;
+			}
 		}
 
 		public bool ContainsPath(string path)

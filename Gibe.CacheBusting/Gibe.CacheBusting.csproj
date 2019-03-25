@@ -82,7 +82,6 @@
   <ItemGroup>
     <Compile Include="ConfigManifestFileFactory.cs" />
     <Compile Include="HardcodedManifestFileFactory.cs" />
-    <Compile Include="DefaultNinjectBindingsModule.cs" />
     <Compile Include="IManifestFileFactory.cs" />
     <Compile Include="IRevisionManifest.cs" />
     <Compile Include="RevisionManifest.cs" />
