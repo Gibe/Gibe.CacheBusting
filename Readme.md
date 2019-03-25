@@ -4,7 +4,7 @@ To use cache busting you need to do the following
 
 nuget : ```Install-Package Gibe.CacheBusting```
 
-You will need to add gulp-rev, gulp-rev-delete-original and gulp-filter to package.json
+You will need to add [gulp-rev](https://www.npmjs.com/package/gulp-rev"gulp-rev"), [gulp-rev-delete-original](https://www.npmjs.com/package/gulp-rev-delete-original"gulp-rev-delete-original") and [gulp-filter](https://www.npmjs.com/package/gulp-filter"gulp-filter") to your package.json
 
 Update the gulp file to then include rev(), revdel() and rev.manifest() in the process for building css and js
 
