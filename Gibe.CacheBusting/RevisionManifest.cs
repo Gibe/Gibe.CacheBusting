@@ -7,12 +7,15 @@ namespace Gibe.CacheBusting
 {
 	public class RevisionManifest : IRevisionManifest
 	{
+		private readonly IManifestFileFactory _manifestFileFactory;
+		private Dictionary<string, string> _lookup;
+
+
+#if NETFULL
+
 		// Singleton
 		private static IRevisionManifest _revisionManifest;
 
-		private readonly IManifestFileFactory _manifestFileFactory;
-		private Dictionary<string, string> _lookup;
-		
 		internal RevisionManifest(IManifestFileFactory manifestFileFactory)
 		{
 			_manifestFileFactory = manifestFileFactory;
@@ -24,16 +27,21 @@ namespace Gibe.CacheBusting
 			{
 				if (_revisionManifest == null)
 				{
-#if NETFULL
 					_revisionManifest = new RevisionManifest(new ConfigManifestFileFactory(new FileService(), new Paths()));
-#elif NETCORE
-					throw new NotSupportedException("CacheBusting has not been configured at startup (Hint: Add app.UseCacheBusting() to Configure)");
-#endif
 				}
 				return _revisionManifest;
 			}
 			internal set { _revisionManifest = value; }
 		}
+#elif NETCORE
+
+		public RevisionManifest(IManifestFileFactory manifestFileFactory)
+		{
+			_manifestFileFactory = manifestFileFactory;
+		}
+#endif
+
+
 
 		public bool ContainsPath(string path)
 		{

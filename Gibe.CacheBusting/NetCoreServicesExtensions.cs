@@ -1,20 +1,17 @@
 ﻿#if NETCORE
+using System;
 using Gibe.FileSystem;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Gibe.CacheBusting
-{public static class NetCoreServicesExtensions
+{
+	public static class NetCoreServicesExtensions
 	{
-		public static void AddCacheBusting(this IApplicationBuilder app)
+		public static void AddCacheBusting(this IServiceCollection services)
 		{
-			RevisionManifest.Current = new RevisionManifest(
-				new ConfigManifestFileFactory(
-					new FileService(), 
-					app.ApplicationServices.GetService<IHostingEnvironment>(), 
-					app.ApplicationServices.GetService<IConfiguration>()));
+			services.AddSingleton<IRevisionManifest, RevisionManifest>();
+			services.AddTransient<IManifestFileFactory, ConfigManifestFileFactory>();
+			services.AddTransient<IFileService, FileService>();
 		}
 	}
 }
