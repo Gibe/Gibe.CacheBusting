@@ -1,4 +1,8 @@
-﻿using System.Web.Mvc;
+﻿#if NETFULL
+using System.Web.Mvc;
+#elif NETCORE
+using Microsoft.AspNetCore.Mvc.Routing;
+#endif
 
 namespace Gibe.CacheBusting
 {

@@ -1,7 +1,13 @@
-﻿using System.Configuration;
+﻿using System.Collections.Generic;
+#if NETFULL
+using System.Configuration;
+#elif NETCORE
+using Microsoft.Extensions.Configuration;
+#endif
 
 namespace Gibe.CacheBusting.Config
 {
+#if NETFULL
 	public class CacheBustingSection : ConfigurationSection
 	{
 		[ConfigurationProperty("manifests", IsRequired = true)]
@@ -40,4 +46,31 @@ namespace Gibe.CacheBusting.Config
 			set => this["file"] = value;
 		}
 	}
+#elif NETCORE
+	public class CacheBustingSection
+	{
+		private readonly IConfiguration _configuration;
+
+		public CacheBustingSection(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+		public IEnumerable<Manifest> Manifests
+		{
+			get
+			{
+				foreach (var section in _configuration.GetSection("cacheBusting").GetChildren())
+				{
+					yield return new Manifest {Path = section.Key, File = section.Value};
+				}
+			}
+		}
+	}
+
+	public class Manifest
+	{
+		public string Path { get; set; }
+		public string File { get; set; }
+	}
+#endif
 }

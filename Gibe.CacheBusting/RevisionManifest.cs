@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Gibe.FileSystem;
 
@@ -23,10 +24,15 @@ namespace Gibe.CacheBusting
 			{
 				if (_revisionManifest == null)
 				{
+#if NETFULL
 					_revisionManifest = new RevisionManifest(new ConfigManifestFileFactory(new FileService(), new Paths()));
+#elif NETCORE
+					throw new NotSupportedException("CacheBusting has not been configured at startup (Hint: Add app.UseCacheBusting() to Configure)");
+#endif
 				}
 				return _revisionManifest;
 			}
+			internal set { _revisionManifest = value; }
 		}
 
 		public bool ContainsPath(string path)
