@@ -138,6 +138,10 @@ GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
 
+# Packages
+packages/
+
+
 # =========================
 # Windows detritus
 # =========================
@@ -155,21 +159,3 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-# =========================
-# Umbraco 
-# =========================
-
-Cached/
-*.Publish.xml
-umbraco.config
-UmbracoTraceLog*
-App_Data/
-imageCache/
-TEMP/
-uSync.Archive/
-
-# Packages
-packages/
-
-# Crystal reports
-aspnet_client/
