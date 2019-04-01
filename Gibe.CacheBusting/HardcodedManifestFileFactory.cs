@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿#if NETFULL
+using System.Collections.Generic;
 using Gibe.FileSystem;
 
 namespace Gibe.CacheBusting
@@ -24,3 +25,4 @@ namespace Gibe.CacheBusting
 		}
 	}
 }
+#endif

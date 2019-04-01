@@ -2,7 +2,13 @@
 
 To use cache busting you need to do the following
 
+## .NET Framework
 nuget : ```Install-Package Gibe.CacheBusting```
+
+## .NET Core
+```dotnet add package Gibe.CacheBusting```
+
+## Gulp
 
 You will need to add [gulp-rev](https://www.npmjs.com/package/gulp-rev"gulp-rev"), [gulp-rev-delete-original](https://www.npmjs.com/package/gulp-rev-delete-original"gulp-rev-delete-original") and [gulp-filter](https://www.npmjs.com/package/gulp-filter"gulp-filter") to your package.json
 
@@ -64,6 +70,7 @@ gulp.task('watch', function () {
 	gulp.watch('./gulp/scripts/**/*.js', ['js']);
 });
 ```
+## .NET Framework configuration
 
 Then you can add to web.config `<configSections>`
 ```xml
@@ -81,6 +88,21 @@ And add this section somewhere in `<configuration>` in your web.config
 ```
 
 Add to your ~/views/web.config : ```xml <add namespace="Gibe.CacheBusting" />```
+
+## .NET Core
+
+```services.AddCacheBusting```
+
+Add to Application.json : 
+```
+"CacheBusting": 
+{
+	"/css/": "/css/rev-manifest.json",
+	"/js/": "/js/rev-manifest.json"
+}
+```
+
+## Using in views
 
 Use in your views ```@Url.Asset("/js/site.js")```
 

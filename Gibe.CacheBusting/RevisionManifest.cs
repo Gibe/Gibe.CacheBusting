@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Gibe.FileSystem;
 
@@ -6,12 +7,15 @@ namespace Gibe.CacheBusting
 {
 	public class RevisionManifest : IRevisionManifest
 	{
+		private readonly IManifestFileFactory _manifestFileFactory;
+		private Dictionary<string, string> _lookup;
+
+
+#if NETFULL
+
 		// Singleton
 		private static IRevisionManifest _revisionManifest;
 
-		private readonly IManifestFileFactory _manifestFileFactory;
-		private Dictionary<string, string> _lookup;
-		
 		internal RevisionManifest(IManifestFileFactory manifestFileFactory)
 		{
 			_manifestFileFactory = manifestFileFactory;
@@ -27,7 +31,17 @@ namespace Gibe.CacheBusting
 				}
 				return _revisionManifest;
 			}
+			internal set { _revisionManifest = value; }
 		}
+#elif NETCORE
+
+		public RevisionManifest(IManifestFileFactory manifestFileFactory)
+		{
+			_manifestFileFactory = manifestFileFactory;
+		}
+#endif
+
+
 
 		public bool ContainsPath(string path)
 		{

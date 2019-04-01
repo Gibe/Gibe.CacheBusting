@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web.Helpers;
 using Gibe.FileSystem;
+using Newtonsoft.Json;
 
 namespace Gibe.CacheBusting
 {
@@ -42,7 +42,7 @@ namespace Gibe.CacheBusting
 			}
 
 			var json = _fileService.ReadAllText(_sourceFile);
-			var lookups = Json.Decode<Dictionary<string, string>>(json);
+			var lookups = Deserialize(json);
 
 			var output = new Dictionary<string, string>();
 			foreach (var kvp in lookups)
@@ -56,5 +56,11 @@ namespace Gibe.CacheBusting
 		{
 			Changed?.Invoke(this, e);
 		}
+
+		private Dictionary<string, string> Deserialize(string json)
+		{
+			return JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+		}
+
 	}
 }
