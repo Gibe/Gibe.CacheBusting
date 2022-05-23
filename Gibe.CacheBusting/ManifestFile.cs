@@ -11,6 +11,7 @@ namespace Gibe.CacheBusting
 		private readonly IFileService _fileService;
 		private readonly string _path;
 		private readonly string _sourceFile;
+		private FileSystemWatcher _fsw;
 
 		public event EventHandler Changed;
 
@@ -25,13 +26,13 @@ namespace Gibe.CacheBusting
 
 		private void WatchManifestForChanges(string file)
 		{
-			var fsw = new FileSystemWatcher(Path.GetDirectoryName(file), Path.GetFileName(file))
+			_fsw = new FileSystemWatcher(Path.GetDirectoryName(file), Path.GetFileName(file))
 			{
 				NotifyFilter = NotifyFilters.LastWrite
 			};
-			fsw.Created += (sender, args) => OnChanged(args);
-			fsw.Changed += (sender, args) => OnChanged(args);
-			fsw.EnableRaisingEvents = true;
+			_fsw.Created += (sender, args) => OnChanged(args);
+			_fsw.Changed += (sender, args) => OnChanged(args);
+			_fsw.EnableRaisingEvents = true;
 		}
 
 		public Dictionary<string, string> GetManifest()
