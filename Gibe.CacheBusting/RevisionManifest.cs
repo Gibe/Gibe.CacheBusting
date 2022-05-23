@@ -9,6 +9,7 @@ namespace Gibe.CacheBusting
 	{
 		private readonly IManifestFileFactory _manifestFileFactory;
 		private Dictionary<string, string> _lookup;
+		private IEnumerable<ManifestFile> _files;
 
 
 #if NETFULL
@@ -58,15 +59,15 @@ namespace Gibe.CacheBusting
 			if (_lookup == null)
 			{
 				_lookup = new Dictionary<string, string>();
-				var files = _manifestFileFactory.GetManifestFiles().ToArray();
-				foreach (var file in files)
+				_files = _manifestFileFactory.GetManifestFiles().ToArray();
+				foreach (var file in _files)
 				{
 					foreach (var kvp in file.GetManifest())
 					{
 						_lookup.Add(kvp.Key, kvp.Value);
 					}
 				}
-				WatchFilesForChanges(files);
+				WatchFilesForChanges(_files);
 			}
 			return _lookup;
 		}
@@ -75,8 +76,13 @@ namespace Gibe.CacheBusting
 		{
 			foreach (var file in files)
 			{
-				file.Changed += (s, e) => _lookup = null;
+				file.Changed += (s, e) => OnChanged();
 			}
+		}
+
+		private void OnChanged() {
+			_lookup = null;
+			_files = null;
 		}
 	}
 }
